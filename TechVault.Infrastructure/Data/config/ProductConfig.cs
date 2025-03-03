@@ -21,6 +21,10 @@ namespace TechVault.Infrastructure.Data.config
 
             builder.Property(x => x.Price).HasColumnType("decimal(18,2)");
 
+            builder.HasData(
+                new Product { Id = 1, Name = "Test", Description = "test",Price=12,CategoryId=1, }
+                );
+
         }
     }
 }
