@@ -9,11 +9,10 @@ using TechVault.Infrastructure.Data;
 
 namespace TechVault.Infrastructure.Repositories
 {
-    public class CategoryRepository : GenericRepository<Category>,ICategoryRepository
+    public class ProductRepository : GenericRepository<Product>, IProductRepository
     {
-        public CategoryRepository(AppDbContext dbContext):base(dbContext)
+        public ProductRepository(AppDbContext dbContext) : base(dbContext)
         {
-            
         }
     }
 }
