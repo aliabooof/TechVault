@@ -20,7 +20,7 @@ namespace TechVault.Infrastructure
             //services.AddScoped<ICategoryRepository,CategoryRepository>();
             //services.AddScoped<IProductRepository,ProductRepository>();
             //services.AddScoped<IPhotoRepository,PhotoRepository>();
-            services.AddScoped<IUnitOfWork, IUnitOfWork>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddDbContext<AppDbContext>(options =>
             {
