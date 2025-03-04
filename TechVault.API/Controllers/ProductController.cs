@@ -20,22 +20,45 @@ namespace TechVault.API.Controllers
         {
             try
             {
-                var product = await _unitOfWork.ProductRepository
-                    .GetAllAsync(p=>p.Category, p=>p.Photos);
+                var products = await _unitOfWork.ProductRepository
+                    .GetAllAsync(p => p.Category, p => p.Photos);
 
-                var result = _mapper.Map<List<ProductDto>>(product);
+                var result = _mapper.Map<List<ProductDto>>(products);
 
-                if (product == null)
+                if (result == null)
                 {
-                    return NotFound(new ResponseApi(400,"product not found"));    
+                    return NotFound(new ResponseApi(400, "products not found"));
                 }
                 return Ok(result);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                return BadRequest(ex.Message);
             }
         }
+
+            [HttpGet("get-by-id/{id}")]
+            public async Task<IActionResult> GetAll(int id)
+            {
+                try
+                {
+                    var product = await _unitOfWork.ProductRepository
+                        .GetByIdAsync(id, p => p.Category, p => p.Photos);
+
+                    var result = _mapper.Map<ProductDto>(product);
+
+                    if (result == null)
+                    {
+                        return NotFound(new ResponseApi(400, "product not found"));
+                    }
+                    return Ok(result);
+                }
+                catch (Exception ex)
+                {
+
+                    return BadRequest(ex.Message);
+                }
+            }
     }
 }
