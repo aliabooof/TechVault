@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TechVault.Core.Interfaces;
 
@@ -9,10 +10,12 @@ namespace TechVault.API.Controllers
     public class BaseController : ControllerBase
     {
         protected readonly IUnitOfWork _unitOfWork;
+        protected readonly IMapper _mapper;
 
-        public BaseController(IUnitOfWork unitOfWork)
+        public BaseController(IUnitOfWork unitOfWork, IMapper mapper)
         {
            _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
     }
 }

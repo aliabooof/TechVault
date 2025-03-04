@@ -8,6 +8,6 @@ namespace TechVault.Core.Entities.Product
         
         [ForeignKey(nameof(ProductId))]
         public int ProductId { get; set; }
-        public virtual Product Product{ get; set; }
+        //public virtual Product Product{ get; set; }
     }
 }
