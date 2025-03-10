@@ -19,7 +19,8 @@ namespace TechVault.Infrastructure.Repositories.Services
         public async Task<List<string>> AddImageAsync(IFormFileCollection files, string src)
         {
             var SaveImageSrc = new List<string>();
-            var ImageDirectory = Path.Combine("wwwroot", "Images", src);
+
+            var ImageDirectory = Path.Combine("wwwroot","Images", src);
            
             if (Directory.Exists(ImageDirectory) is not true)
             {
@@ -31,12 +32,16 @@ namespace TechVault.Infrastructure.Repositories.Services
                 if (item.Length > 0)
                 {
                     var imageName = item.FileName;
-                    var imageSrc = Path.Combine(ImageDirectory, imageName);
-                    using (FileStream fileStream = new FileStream(imageSrc, FileMode.Create))
+
+                    var imageSrc = $"/Images/{src}/{imageName}";
+
+                    var root = Path.Combine(ImageDirectory,imageName);
+
+                    using (FileStream fileStream = new FileStream(root, FileMode.Create))
                     {
-                        await fileStream.CopyToAsync(fileStream);
+                        await item.CopyToAsync(fileStream);
                     }
-                    SaveImageSrc.Add(imageName);
+                    SaveImageSrc.Add(imageSrc);
                 }
 
             }

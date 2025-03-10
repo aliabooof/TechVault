@@ -1,3 +1,4 @@
+using TechVault.API.Middlewares;
 using TechVault.Infrastructure;
 namespace TechVault.API
 {
@@ -15,6 +16,7 @@ namespace TechVault.API
             builder.Services.AddSwaggerGen();
             builder.Services.infrastructureConfiguration(builder.Configuration);
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            builder.Services.AddMemoryCache();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -23,10 +25,11 @@ namespace TechVault.API
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
+            app.UseMiddleware<ExceptionsMiddleware>();
+            app.UseStatusCodePagesWithReExecute("/errors/{0}"); 
             app.UseHttpsRedirection();
 
-            app.UseAuthorization();
+            app.UseAuthorization(); 
 
 
             app.MapControllers();
